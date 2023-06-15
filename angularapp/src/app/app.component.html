@@ -1,0 +1,101 @@
+<div class="employee-header">
+  <h2>Employee Management</h2>
+</div>
+<div style="display:grid; width:50%;">
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input type="text" matInput [formControl]="nameFormControl" maxlength="50">
+    <mat-error *ngIf="nameFormControl.invalid">{{getErrorMessage('name')}}</mat-error>
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <mat-label>Email</mat-label>
+    <input type="email" matInput [formControl]="emailFormControl"
+           placeholder="Ex. pat@example.com" maxlength="50">
+    <mat-error *ngIf="emailFormControl.invalid">{{getErrorMessage('email')}}</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Date Of Birth</mat-label>
+    <input matInput [matDatepicker]="picker" [max]="maxDate" [formControl]="dateOfBirthFormControl">
+    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    <mat-error *ngIf="dateOfBirthFormControl.invalid">{{getErrorMessage('dob')}}</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Department</mat-label>
+    <mat-select [formControl]="departmentFormControl">
+      <mat-option value="IT">IT</mat-option>
+      <mat-option value="Support">Support</mat-option>
+      <mat-option value="HR">HR</mat-option>
+      <mat-option value="Admin">Admin</mat-option>
+      <mat-option value="Payroll">Payroll</mat-option>
+    </mat-select>
+    <mat-error *ngIf="departmentFormControl.invalid">{{getErrorMessage('department')}}</mat-error>
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="saveData()">Save</button>
+</div>
+<div style="display:grid;">
+  <div class="employee-filter">
+    <mat-form-field>
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="searchClick($event)" placeholder="name or email or department" #input>
+    </mat-form-field>
+  </div>
+  <table mat-table [dataSource]="forecasts" class="mat-elevation-z8">
+
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="Name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.Name}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="Email">
+      <th mat-header-cell *matHeaderCellDef> Email </th>
+      <td mat-cell *matCellDef="let element"> {{element.Email}} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="DateOfBirth">
+      <th mat-header-cell *matHeaderCellDef> Date Of Birth </th>
+      <td mat-cell *matCellDef="let element"> {{element.DateOfBirth | date:'longDate'}} </td>
+    </ng-container>
+    <ng-container matColumnDef="Department">
+      <th mat-header-cell *matHeaderCellDef> Department </th>
+      <td mat-cell *matCellDef="let element"> {{element.Department}} </td>
+    </ng-container>
+    <ng-container matColumnDef="Edit">
+      <th mat-header-cell *matHeaderCellDef> Edit </th>
+      <td mat-cell *matCellDef="let element">
+        
+          <button mat-mini-fab color="primary" aria-label="edit icon" (click)="editEmployee(element)">
+            <mat-icon>edit</mat-icon>
+          </button>
+       
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="Delete">
+      <th mat-header-cell *matHeaderCellDef> Delete </th>
+      <td mat-cell *matCellDef="let element">
+        
+          <button mat-mini-fab color="primary" aria-label="delete icon" (click)="deleteEmployee(element)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+ <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                  showFirstLastButtons
+                  aria-label="Select page of periodic elements">
+  </mat-paginator>
+</div>
+<div class="employee-footer">
+  <p>
+    powered by cyberspace - © 2023
+  </p>
+</div>

@@ -1,0 +1,21 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.employee-header {
+    display:flex;
+  background-color: cadetblue;
+  align-items:center;
+  color:white;
+}
+.employee-footer {
+    display:flex;
+    justify-content:flex-end;
+  background-color:cadetblue;
+  align-items:center;
+}
+.employee-filter {
+  margin-top: 20px;
+  display: grid;
+  width: 100%;
+}
